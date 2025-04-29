@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: user-service
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/leedongkyu0407/devops-demo
+    targetRevision: HEAD
+    path: helm-chart/user-service  # Chart.yaml 있는 위치
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: user-service
+  syncPolicy:
+    automated:
+      prune: true       # 불필요한 리소스 제거
+      selfHeal: true    # 드리프트 수정

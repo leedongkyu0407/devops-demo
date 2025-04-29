@@ -1,0 +1,18 @@
+replicaCount: 1                   # 파드 복제 수
+
+image:
+  repository: use02012/scheduler-service   # DockerHub 이미지 경로
+  tag: latest                         # 태그
+  pullPolicy: IfNotPresent            # 이미지가 없으면 풀
+
+service:
+  type: NodePort                      # NodePort로 외부 접속 가능하게 설정
+  port: 80                            # 컨테이너 포트
+
+resources:                            # 리소스 요청/제한 (옵션)
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi

@@ -1,0 +1,29 @@
+apiVersion: apps/v1                          # 배포 리소스 API 버전
+kind: Deployment                             # 리소스 타입: Deployment
+metadata:
+  name: {{ .Chart.Name }}                    # 배포 이름: user-service
+  labels:
+    app: {{ .Chart.Name }}                   # 앱 레이블
+
+spec:
+  replicas: {{ .Values.replicaCount }}       # 복제 수
+
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}                 # 파드를 식별할 레이블
+
+  template:                                  # 파드 템플릿
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"   # 도커 이미지
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          ports:
+            - containerPort: {{ .Values.service.port }}                     # FastAPI 실행 포트
+
+          resources: {{ toYaml .Values.resources | nindent 12 }}           # 리소스 설정

@@ -1,0 +1,5 @@
+apiVersion: v2                     # Helm 차트의 API 버전
+name: user-service                 # 차트 이름
+description: A Helm chart for user-service
+version: 0.1.0                     # 차트 버전
+appVersion: "1.0"                  # 실제 앱 버전 (Docker 이미지 버전과 맞춰도 좋음)

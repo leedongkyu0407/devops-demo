@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Chart.Name }}
+spec:
+  type: {{ .Values.service.type }}      # NodePort로 외부 연결
+  selector:
+    app: {{ .Chart.Name }}              # 위의 deployment와 매칭되는 레이블
+  ports:
+    - protocol: TCP
+      port: 80                          # 클러스터 내부 서비스 포트
+      targetPort: {{ .Values.service.port }}  # 컨테이너 포트
